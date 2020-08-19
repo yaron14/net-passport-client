@@ -1,0 +1,26 @@
+{
+  "name": "netpassport-client",
+  "version": "0.0.1",
+  "description": "Simple client side package for sending digital signatures requests and recieving confirmation",
+  "main": "main.ts",
+  "scripts": {
+    "dev": "parcel example/index.html",
+    "build": "parcel build main.ts"
+  },
+  "keywords": [
+    "signature",
+    "Digital signature"
+  ],
+  "author": "Yaron Lerner",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "socket.io-client": "^2.3.0"
+  },
+  "browserslist": [
+    "Chrome > 66"
+  ]
+}

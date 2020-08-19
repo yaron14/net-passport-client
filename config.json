@@ -1,0 +1,4 @@
+{
+  "SOCKET_URL": "http://dev.netpassport.io",
+  "SIGNATURE_URL": "https://dev.netpassport.io/signature/requestClientSignature"
+}
