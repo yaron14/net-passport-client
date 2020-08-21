@@ -7,10 +7,10 @@ interface SignatureRequest {
   data: { description: string; payload: object };
 }
 
-interface SignedData {
-  publicKey: string;
-  signature: string;
-  challenge?: string;
+interface ResponseData {
+  status?: string;
+  message?: string;
+  statusCode?: string;
 }
 
 const rest_post = async (message) => {
@@ -19,7 +19,7 @@ const rest_post = async (message) => {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(message),
   });
-  const data = await resp.json();
+  const data: ResponseData = await resp.json();
   if (data.status === "error")
     throw new Error(`${data.message}. Status code ${data.statusCode}`);
   return data;
@@ -29,7 +29,7 @@ export const signatureRequest = async (message: SignatureRequest) => {
   try {
     const socket = io(SOCKET_URL);
     const resp: object = await rest_post(message);
-    socket.on("message signed", (data: SignedData) => {
+    socket.on("message signed", (data: string) => {
       window.dispatchEvent(new CustomEvent("signedmessage", { detail: data }));
     });
     return resp;
