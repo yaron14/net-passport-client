@@ -7,12 +7,6 @@ interface SignatureRequest {
   data: { description: string; payload: object };
 }
 
-interface SignedData {
-  publicKey: string;
-  signature: string;
-  challenge?: string;
-}
-
 const rest_post = async (message) => {
   const resp = await fetch(SIGNATURE_URL, {
     method: "POST",
@@ -26,14 +20,14 @@ const rest_post = async (message) => {
 };
 
 export const signatureRequest = async (message: SignatureRequest) => {
+  const socket = io(SOCKET_URL);
   try {
-    const socket = io(SOCKET_URL);
     const resp: object = await rest_post(message);
-    socket.on("message signed", (data: SignedData) => {
+    socket.on("message signed", (data: string) => {
       window.dispatchEvent(new CustomEvent("signedmessage", { detail: data }));
     });
     return resp;
   } catch (error) {
-    throw new Error(error.message);
+    console.error(error.message)
   }
 };
